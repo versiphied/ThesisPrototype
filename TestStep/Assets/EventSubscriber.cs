@@ -10,12 +10,16 @@ public class EventSubscriber : MonoBehaviour {
     public string eventID;
     public GameObject Check;
     public GameObject Check2;
+    public GameObject Mic;
+    public GameObject Canvas;
+    public GameObject Canvas2;
     public List<KoreographyEvent> eventsList;
     public AudioClip currentTrack;
     public bool KoreographyColor;
     public bool KoreographyColor2;
     public int EventFrame;
     public int CurrentFrame;
+   
    
     // Use this for initialization
     void Start () {
@@ -28,15 +32,16 @@ public class EventSubscriber : MonoBehaviour {
 
         EventFrame = Time.frameCount;
        
-        //if KoreographyColor is true, make the check color the same color as the event color valor
+        //if KoreographyColor is true, check color is equal to the color value of the koreography event.
+        //If not, check color is red.
         if (KoreographyColor == true)
         {
            
-            Debug.Log(Check.GetComponent<SpriteRenderer>().color);
+           // Debug.Log(Check.GetComponent<SpriteRenderer>().color);
             Check.GetComponent<SpriteRenderer>().color = koreoEvent.GetColorValue();
-            Debug.Log("Koreography Event Fired: " + koreoEvent.StartSample);
-            Debug.Log(koreoEvent.GetColorValue());
-            Debug.Log(Check.GetComponent<SpriteRenderer>().color);
+           // Debug.Log("Koreography Event Fired: " + koreoEvent.StartSample);
+           // Debug.Log(koreoEvent.GetColorValue());
+          //  Debug.Log(Check.GetComponent<SpriteRenderer>().color);
            // Debug.Log("");
 
 
@@ -47,11 +52,11 @@ public class EventSubscriber : MonoBehaviour {
         }
         if (KoreographyColor2 == true)
         {
-            Debug.Log(Check.GetComponent<SpriteRenderer>().color);
+            //Debug.Log(Check.GetComponent<SpriteRenderer>().color);
             Check2.GetComponent<SpriteRenderer>().color = koreoEvent.GetColorValue();
-            Debug.Log("Koreography Event Fired: " + koreoEvent.StartSample);
-            Debug.Log(koreoEvent.GetColorValue());
-            Debug.Log(Check.GetComponent<SpriteRenderer>().color);
+           // Debug.Log("Koreography Event Fired: " + koreoEvent.StartSample);
+          //  Debug.Log(koreoEvent.GetColorValue());
+           // Debug.Log(Check.GetComponent<SpriteRenderer>().color);
         }
         else
         {
@@ -61,7 +66,7 @@ public class EventSubscriber : MonoBehaviour {
 
     void Update()
     {
-        //press key to end event, thus changing the color back to its orignal color
+        //press key to end event, thus changing the check color back to red
 
         CurrentFrame = Time.frameCount;
         Debug.Log(CurrentFrame + " " + EventFrame);
@@ -69,22 +74,22 @@ public class EventSubscriber : MonoBehaviour {
         if (CurrentFrame-1 == EventFrame && Input.GetKey(KeyCode.LeftControl)) 
         {
 
-            KoreographyColor = true;
+            KoreographyColor = false;
             Debug.Log("Key Is Pressed");
         }
         else
         {
-            KoreographyColor = false;
+            KoreographyColor = true;
         }
         if (CurrentFrame - 1 == EventFrame && Input.GetKey(KeyCode.RightControl))
         {
 
-            KoreographyColor2 = true;
+            KoreographyColor2 = false;
             Debug.Log("Key Is Pressed");
         }
         else
         {
-            KoreographyColor2 = false;
+            KoreographyColor2 = true;
         }
     }
 
