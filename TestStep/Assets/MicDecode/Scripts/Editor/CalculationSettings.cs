@@ -24,8 +24,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-namespace JulianSchoenbaechler.MicDecode
-{
+
 	public class CalculationSettings : EditorWindow
 	{
 		#region Variables
@@ -126,4 +125,4 @@ namespace JulianSchoenbaechler.MicDecode
 
 		#endregion
 	}
-}
+    

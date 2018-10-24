@@ -23,8 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JulianSchoenbaechler.MicDecode
-{
+
 	public static class MicDecodeSettings
 	{
 		public const string VERSION = "1.0.0";
@@ -36,4 +35,4 @@ namespace JulianSchoenbaechler.MicDecode
 		public enum Debug { Off, Equalizer, Calculations, All };	// Debug options
 		public static Debug debugState = Debug.Off;
 	}
-}
+

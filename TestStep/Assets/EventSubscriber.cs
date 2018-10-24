@@ -10,9 +10,9 @@ public class EventSubscriber : MonoBehaviour {
     public string eventID;
     public GameObject Check;
     public GameObject Check2;
-    public GameObject Mic;
-    public GameObject Canvas;
-    public GameObject Canvas2;
+    public MicDecode Mic;
+    public GameObject Go2;
+    public GameObject Go;
     public List<KoreographyEvent> eventsList;
     public AudioClip currentTrack;
     public bool KoreographyColor;
@@ -31,7 +31,8 @@ public class EventSubscriber : MonoBehaviour {
     {
 
         EventFrame = Time.frameCount;
-       
+        Go.SetActive(true);
+        Go2.SetActive(true);
         //if KoreographyColor is true, check color is equal to the color value of the koreography event.
         //If not, check color is red.
         if (KoreographyColor == true)
@@ -49,6 +50,7 @@ public class EventSubscriber : MonoBehaviour {
         else
         {
             Check.GetComponent<SpriteRenderer>().color = Color.red;
+            
         }
         if (KoreographyColor2 == true)
         {
@@ -69,30 +71,41 @@ public class EventSubscriber : MonoBehaviour {
         //press key to end event, thus changing the check color back to red
 
         CurrentFrame = Time.frameCount;
-        Debug.Log(CurrentFrame + " " + EventFrame);
+        if (CurrentFrame > EventFrame + 2)
+        {
+            Mic.Clap = false;
+            Debug.Log("Resetting Clap");
+        }
+      //  Debug.Log(CurrentFrame + " " + EventFrame);
         //if (Input.GetKeyDown(KeyCode.LeftControl))
-        if (CurrentFrame-1 == EventFrame && Input.GetKey(KeyCode.LeftControl)) 
+        if (CurrentFrame-1 == EventFrame && Mic.Clap) //&& Input.GetKey(KeyCode.LeftControl)) 
         {
 
-            KoreographyColor = false;
-            Debug.Log("Key Is Pressed");
-        }
-        else
-        {
             KoreographyColor = true;
-        }
-        if (CurrentFrame - 1 == EventFrame && Input.GetKey(KeyCode.RightControl))
-        {
-
-            KoreographyColor2 = false;
             Debug.Log("Key Is Pressed");
+            Go.SetActive(false);
+            Go2.SetActive(false);
         }
         else
         {
-            KoreographyColor2 = true;
+            KoreographyColor = false;
         }
-    }
+        if (CurrentFrame - 1 == EventFrame && Mic.Clap) //&& Input.GetKey(KeyCode.RightControl))
+        {
 
+            KoreographyColor2 = true;
+            Debug.Log("Key Is Pressed");
+            Go.SetActive(false);
+            Go2.SetActive(false);
+        }
+        else
+        {
+            KoreographyColor2 = false;
+        }
+
+
+    }
+    
 }
     
 

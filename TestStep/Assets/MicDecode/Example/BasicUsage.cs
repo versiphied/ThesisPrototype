@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Using MicDecode
-using JulianSchoenbaechler.MicDecode;
 
 public class BasicUsage : MonoBehaviour
 {

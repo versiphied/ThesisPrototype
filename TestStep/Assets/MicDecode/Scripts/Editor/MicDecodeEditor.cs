@@ -24,8 +24,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-namespace JulianSchoenbaechler.MicDecode
-{
+
 	[CustomEditor(typeof(MicDecode))]
 	public class MicDecodeEditor : Editor
 	{
@@ -35,7 +34,7 @@ namespace JulianSchoenbaechler.MicDecode
 		private SerializedProperty _microphoneSampleRateProp;
 		private SerializedProperty _calculationsPerSecondProp;
 		private SerializedProperty _spectrumFFTWindowProp;
-
+    private SerializedProperty _threshold;
 		private EditorWindow _settingsWindow;
 
 		#endregion
@@ -52,6 +51,7 @@ namespace JulianSchoenbaechler.MicDecode
 			_microphoneSampleRateProp = serializedObject.FindProperty("_microphoneSampleRate");
 			_calculationsPerSecondProp = serializedObject.FindProperty("_calculationsPerSecond");
 			_spectrumFFTWindowProp = serializedObject.FindProperty("_spectrumFFTWindow");
+            _threshold = serializedObject.FindProperty("_threshold");
 		}
 
 		/// <summary>
@@ -91,10 +91,10 @@ namespace JulianSchoenbaechler.MicDecode
 				_microphoneSampleRateProp.intValue
 			);
 			EditorGUILayout.Space();
-
-
-			// FFT Window prop
-			_spectrumFFTWindowProp.enumValueIndex = (int)(FFTWindow)EditorGUILayout.EnumPopup("FFT Window", (FFTWindow)_spectrumFFTWindowProp.enumValueIndex);
+            _threshold.floatValue = EditorGUILayout.Slider("threshold", _threshold.floatValue, .025f, .2f);
+        EditorGUILayout.Space();
+        // FFT Window prop
+        _spectrumFFTWindowProp.enumValueIndex = (int)(FFTWindow)EditorGUILayout.EnumPopup("FFT Window", (FFTWindow)_spectrumFFTWindowProp.enumValueIndex);
 			EditorGUILayout.Space();
 
 			// Calculations prop
@@ -121,4 +121,4 @@ namespace JulianSchoenbaechler.MicDecode
 
 		#endregion
 	}
-}
+

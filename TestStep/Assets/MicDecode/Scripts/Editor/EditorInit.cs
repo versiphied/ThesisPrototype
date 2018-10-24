@@ -24,8 +24,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-namespace JulianSchoenbaechler.MicDecode
-{
+
 	[InitializeOnLoad]
 	public class EditorInit
 	{
@@ -47,5 +46,5 @@ namespace JulianSchoenbaechler.MicDecode
 				MicDecodeSettings.debugState = (MicDecodeSettings.Debug)EditorPrefs.GetInt("debugState");
 		}
 	}
-}
+
 

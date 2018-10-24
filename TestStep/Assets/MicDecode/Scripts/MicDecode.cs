@@ -23,8 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JulianSchoenbaechler.MicDecode
-{
+
 	[RequireComponent(typeof(AudioSource))]
 	public class MicDecode : MonoBehaviour
 	{
@@ -35,15 +34,19 @@ namespace JulianSchoenbaechler.MicDecode
 		[SerializeField] protected int _microphoneSampleRate;									// Sample rate of the mic in Hz
 		[SerializeField][Range(1, 30)] protected int _calculationsPerSecond = 5;				// Number of calculations per second
 		[SerializeField] protected FFTWindow _spectrumFFTWindow = FFTWindow.BlackmanHarris;		// The used FFT window
+        [SerializeField] [Range(.025f, .2f)] public float _threshold;
 
-		// Private
-		protected AudioSource _audioSource;
+    // Private
+    protected AudioSource _audioSource;
 		protected float[] _outputSamples;
 		protected float[] _spectrum;
 
 		protected float _rmsVal;
 		protected float _dbVal;
 		protected float _pitchVal;
+      
+
+        public bool Clap;
 
 		#endregion
 
@@ -66,6 +69,9 @@ namespace JulianSchoenbaechler.MicDecode
 
 			if(MicDecodeSettings.debugState != MicDecodeSettings.Debug.Off)
 				Debug.Log("[MicDecode] Analog input initialized. " + _calculationsPerSecond.ToString() + " calculation(s) per second.");
+
+            StartRecording();
+            
 		}
 
 		/// <summary>
@@ -73,7 +79,20 @@ namespace JulianSchoenbaechler.MicDecode
 		/// </summary>
 		protected void Update()
 		{
-			// Sync audiosource with mic input
+
+            CalculateRMSValue();
+            //_threshold = .048f;
+
+            if(_threshold < VolumeRMS)
+            {
+                Clap = true;
+            Debug.Log("Clapped");
+            }
+          
+                //Debug.Log("RMSVal " +VolumeRMS);
+
+            
+            // Sync audiosource with mic input
 			if(!_audioSource.isPlaying)
 			{
 				if(Microphone.GetPosition(_inputDevice) > 0)
@@ -356,4 +375,4 @@ namespace JulianSchoenbaechler.MicDecode
 
 		#endregion
 	}
-}
+
